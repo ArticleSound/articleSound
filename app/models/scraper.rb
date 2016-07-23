@@ -4,7 +4,8 @@ require 'pry'
 class Scraper
   CONTENT_TAG = { "medium.com": ".postArticle-content",
                 "espn.go.com": ".article",
-                "www.npr.org": ".story"
+                "www.npr.org": ".story",
+                "www.bbc.com": ".story-body__inner"
                 }
 
   attr_reader :url, :domain, :text
@@ -25,18 +26,21 @@ class Scraper
   end
 
   def get_domain(url)
-    uri = URI.parse(url)
+    uri    = URI.parse(url)
     domain = uri.host
   end
 
   def scrape_text
-    tag = CONTENT_TAG[domain.to_sym]
-    doc = Nokogiri::HTML(open(url))
+    tag   = CONTENT_TAG[domain.to_sym]
+    doc   = Nokogiri::HTML(open(url))
+    # binding.pry
+    doc   = remove_scripts(doc, tag)
     @text = doc.css(tag).text
   end
 
   def white_space_cleaner
-    self.text.gsub!(/\s{2,}|\\n/, " ")
+    self.text.gsub!(/\s+/, " ")
+    self.text.gsub!(/<a\s\S+">|<\/a>/, " ")
   end
 
   def text_length
@@ -44,4 +48,9 @@ class Scraper
       @text = text[0,4999]
     end
   end
+
+  def remove_scripts(doc, tag)
+    doc.css(tag).search('script').remove
+  end
+
 end
