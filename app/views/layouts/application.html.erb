@@ -10,14 +10,13 @@
 
   <body>
     <ul id="dropdown1" class="dropdown-content">
-            <li><%=link_to "logout", logout_path, method:"delete"%></li>
+        <li><%=link_to "logout", logout_path, method:"delete"%></li>
     <li class="divider"></li>
   </ul>
     <nav>
       <div class="nav-wrapper">
       <ul id="nav-mobile" class="right">
       <% if logged_in? %>
-        <li><%=link_to "logout", logout_path, method:"delete"%></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%=current_user.username%><i class="material-icons right"></i></a></li>
       <% else %>
         <li><%=link_to "register", register_path%></li>
