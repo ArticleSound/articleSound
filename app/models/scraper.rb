@@ -1,6 +1,4 @@
-require 'open-uri'
-require 'nokogiri'
-require 'pry'
+
 class Scraper
 
   CONTENT_TAG = {
