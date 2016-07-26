@@ -63,7 +63,6 @@ class Scraper
     elsif @domain == "espn.go.com"
       self.white_space_cleaner
       @text.gsub!(/\A.*comment/, "")
-      binding.pry
     end
   end
 
@@ -113,6 +112,6 @@ class Scraper
   # Shorter watson calls as delete_file works on heroku
 
   def text_length_development
-    @text = text[0,250]
+    @text = text[0, 10]
   end
 end
