@@ -5,23 +5,23 @@ $(document).ready(function() {
   Materialize.updateTextFields();
 
   $('.play').click(function(e){
+    e.preventDefault();
     // debugger
 
     var pause = this.parentElement.nextElementSibling;
     var url = $(this).data("url");
     $('#player').prop('src', url);
     // $('#player').play();
-    // $(pause).removeClass("inactive");
-    // $(this.parentElement).addClass("inactive");
+    $(pause).removeClass("inactive");
+    $(this.parentElement).addClass("inactive");
   });
 
-  // $('.pause').click(function(e){
-  //   var play = this.previousElementSibling;
-  //   debugger
-  //   $('#player').pause();
-  //   $(pause).removeClass("inactive");
-  //   $(this).addClass("inactive");
-  // });
+  $('.pause').click(function(e){
+    var pause = this.parentElement.previousElementSibling;
+    // $('#player').pause();
+    $(pause).removeClass("inactive");
+    $(this.parentElement).addClass("inactive");
+  });
 
   $('.article').on('click', '.show-text', function(e) {
     var text = this.parentElement.lastChild.previousElementSibling;
