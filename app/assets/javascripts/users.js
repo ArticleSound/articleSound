@@ -10,15 +10,20 @@ $(document).ready(function() {
 
     var pause = this.parentElement.nextElementSibling;
     var url = $(this).data("url");
-    $('#player').prop('src', url);
-    // $('#player').play();
+
+    if($(this).hasClass('clicked')) {
+      $('#player').get(0).play();
+    }else {
+      $('#player').prop('src', url);
+      $(this).addClass('clicked')
+    }
     $(pause).removeClass("inactive");
     $(this.parentElement).addClass("inactive");
   });
 
   $('.pause').click(function(e){
     var pause = this.parentElement.previousElementSibling;
-    // $('#player').pause();
+    $('#player').get(0).pause();
     $(pause).removeClass("inactive");
     $(this.parentElement).addClass("inactive");
   });
@@ -32,4 +37,6 @@ $(document).ready(function() {
       $(text).slideToggle();
     }
   });
+
+
 });
