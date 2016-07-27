@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    # binding.pry
     @article = Article.find_or_initialize_by(article_params)
 
     if @article.valid?
@@ -11,15 +12,19 @@ class ArticlesController < ApplicationController
         if request.xhr?
           @queue = current_user.user_articles.where(listened: false).order("created_at DESC").limit(5)
           render partial: "/users/queue", queue: @queue
+          return
         else
           redirect_to current_user
+          return
         end
       else
         if request.xhr?
           render :json => { :error => "Article already in your queue/history." }.to_json, status: 422
+          return
         else
           flash[:notice] = "Article already in your queue/history."
           redirect_to current_user
+          return
         end
       end
     else
@@ -33,7 +38,6 @@ class ArticlesController < ApplicationController
     end
 
     if @article.save
-      # binding.pry
       # @article.call_watson
       # @audio = Audio.create!(article: @article, track: File.open("#{Rails.root}/tmp/article#{@article.id}.ogg") )
       # UserArticle.create(user:current_user, article:@article)
@@ -44,16 +48,19 @@ class ArticlesController < ApplicationController
       if request.xhr?
         @queue = current_user.user_articles.where(listened: false).order("created_at DESC").limit(5)
         render partial: "/users/queue", queue: @queue
+        return
       else
         redirect_to current_user
+        return
       end
     else
       if request.xhr?
-        binding.pry
         render :json => { :error => scraper.text }.to_json, status: 422
+        return
       else
         flash[:notice]=scraper.text
         redirect_to current_user
+        return
       end
     end
   end
@@ -81,7 +88,6 @@ class ArticlesController < ApplicationController
   #         @article.title = scraper.title
   #       end
   #       if @article.save
-  #         # binding.pry
   #         # @article.call_watson
   #         # @audio = Audio.create!(article: @article, track: File.open("#{Rails.root}/tmp/article#{@article.id}.ogg") )
   #         # UserArticle.create(user:current_user, article:@article)

@@ -37,8 +37,16 @@ $(document).ready(function() {
         url: '/user_articles/'+ id,
         method: 'patch'
       });
+      var isPause = $(this.parentElement.nextElementSibling);
+      if ( isPause[0].children[0].className == 'pause'){
+        isPause.addClass('inactive')
+      }
+      $(this.parentElement).removeClass('inactive');
     }.bind(this));
+
+
   });
+
 
   $('.pause').click(function(e){
     var pause = this.parentElement.previousElementSibling;
@@ -94,7 +102,7 @@ $(document).ready(function() {
   , position: 'absolute' // Element positioning
   };
 
-   $('.url-form').on('submit','#new_article',function(e){
+  $('.url-form').on('submit','#new_article',function(e){
     e.preventDefault();
 
     var target = $(e.target);
@@ -110,7 +118,6 @@ $(document).ready(function() {
       data: { "article" : { "url": entered_url } }
     });
     request.done(function(response){
-      // debugger
       spinner.stop();
       button2.firstChild.style.visibility="visible";
       $('#queue').html(response);
