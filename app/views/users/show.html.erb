@@ -1,32 +1,47 @@
+<div class="container center-align">
   <%if flash[:notice]%>
-    <div class="notice"><%=flash[:notice]%></div>
+    <div class="notice row col s12"><%=flash[:notice]%></div>
   <%end%>
 
-<div>
-  <%=form_for @article do |f|%>
-    <div class='input-field'>
-      <%=f.label :url, "Article URL"%>
-      <%=f.text_field :url %>
-    </div>
-    <%=f.submit "Read", class:"btn"%>
-  <%end%>
-</div>
-<br>
-
-  <div>
-    <audio id="player" src="#" controls autoplay="true"></audio>
-  </div>
-  <br>
-
-  <h3>your articles</h3>
-  <%@articles.each do |article|%>
-    <div class="article">
-      <h4><%=article.title%></h4>
-      <div class='inactive text-scroll-container'>
-        <span><%= article.text %></span>
+  <div class="url-form col s12" id="url-form">
+    <div id="url-error" style></div>
+    
+    <%=form_for @article do |f|%>
+    
+    <div class="row">
+      <div class='input-field col s12 l10'>
+          <%=f.label :url, "URL"%>
+          <%=f.text_field :url %>
       </div>
-      <div class="link"><a class="play" data-url=<%=article.audio.track.url%> >play</a></div>
-      <div class="link">remove</div>
-      <div class='link show-text'><a id=<%= article.id %>>text</a></div>
+      <div>
+          <%=f.submit "Read", class:"btn waves-effect waves-orange read-button"%>
+      </div>
     </div>
-  <%end%>
+    <%end%>
+  </div>
+
+  <div class="audio-player row">
+    <audio id="player"  class="col s12" src="#history" controls="controls" autoplay="true"></audio>
+  </div>
+
+  <div class="your-articles" >
+    <table id='tabs'>
+      <tr>
+        <td class='tab'>
+          <h4 class="center-align" id="history-tab">History</h4>
+        </td>
+        <td class="tab open-tab">
+          <h4 class="center-align" id="queue-tab">Queue</h4>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </table>
+    <div class="col s8 inactive" id="history">
+      <%= render 'history', locals: { queue: @history } %>
+    </div>
+    <div class="col s8" id="queue">
+      <%= render 'queue', locals: { queue: @queue } %>
+    </div>
+  </div>
+</div>

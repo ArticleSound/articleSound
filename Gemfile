@@ -31,11 +31,10 @@ gem "binding_of_caller"
 # gem 'figaro'
 gem 'dotenv-rails', :groups => [:development, :test]
 
+gem 'faker'
 
 gem "paperclip"
 gem 'aws-sdk'
-
-
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
