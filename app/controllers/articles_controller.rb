@@ -1,9 +1,8 @@
 class ArticlesController < ApplicationController
-  def new
-  end
+  # def new
+  # end
 
   def create
-    # binding.pry
     @article = Article.find_or_initialize_by(article_params)
 
     if @article.valid?

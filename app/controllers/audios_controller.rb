@@ -4,7 +4,6 @@ class AudiosController < ApplicationController
     @audio = Audio.new
   end
 
-
   def create
     @audio = Audio.new(audio_params)
     if @audio.save
@@ -13,9 +12,6 @@ class AudiosController < ApplicationController
       @errors = @audio.errors.full_messages
       render 'new'
     end
-  end
-
-  def show
   end
 
 private
