@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> f0a1a518b9b78b70f9ffd9b8015eb58b50a8163a
 class Scraper
 
   CONTENT_TAG = {
